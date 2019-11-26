@@ -17,12 +17,13 @@ def _cap_str_to_mln_float(cap):
        - if 'M' in cap value, strip it off and return value as float,
        - if 'B', strip it off and multiple by 1,000 and return
          value as float"""
+    cap = cap.lstrip('$')
     if cap == 'n/a':
         return 0
     elif 'M' in cap:
-        return float(cap.rstrip('M').lstrip('$'))
+        return float(cap.rstrip('M'))
     elif 'B' in cap:
-        return float(cap.rstrip('B').lstrip('$')) * 1000
+        return float(cap.rstrip('B')) * 1000
 
 
 def get_industry_cap(industry):
