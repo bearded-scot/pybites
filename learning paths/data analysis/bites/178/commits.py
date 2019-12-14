@@ -1,7 +1,6 @@
 from collections import Counter
 import os
 from urllib.request import urlretrieve
-
 from dateutil.parser import parse
 
 commits = os.path.join('/tmp', 'commits')
@@ -22,4 +21,4 @@ def get_min_max_amount_of_commits(commit_log: str = commits,
 
     Returns a tuple of (least_active_month, most_active_month)
     """
-    passt
+
