@@ -33,17 +33,24 @@ def load_data():
                         year=row['Year'])
 
 
-characters = list(load_data())
 
 
 # start coding
-
+characters = load_data()
 def most_popular_characters(characters=characters, top=5):
     """Get the most popular character by number of appearances,
        return top n characters (default 5)
     """
-    pass
+    char_app = dict()
+    for character in characters:
+        x = character
+        char_app[x.name] = x.appearances
+    top_char = {k: v for k, v in sorted(char_app.items(), key=lambda item: item[-1])}
+    top_n = [key for key, value in top_char.items()][:top]
+    return top_n
 
+
+print(most_popular_characters(characters=characters, top=5))
 
 def max_and_min_years_new_characters(characters=characters):
     """Get the year with most and least new characters introduced respectively,
