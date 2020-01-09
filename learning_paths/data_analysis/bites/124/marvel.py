@@ -41,13 +41,13 @@ def most_popular_characters(characters=characters, top=5):
     """Get the most popular character by number of appearances,
        return top n characters (default 5)
     """
-    char_app = dict()
+    char_app = list()
     for character in characters:
         x = character
-        char_app[x.name] = x.appearances
-    top_char = {k: v for k, v in sorted(char_app.items(), key=lambda item: item[-1])}
-    top_n = [key for key, value in top_char.items()][:top]
-    return top_n
+        (n, a) = x.name, x.appearances
+        char_app.append((n,a))
+    top_n = [key for key, value in char_app][:top]
+    return print(top_n)
 
 
 print(most_popular_characters(characters=characters, top=5))
