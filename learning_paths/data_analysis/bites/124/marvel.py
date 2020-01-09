@@ -1,6 +1,7 @@
 from collections import Counter, namedtuple
 import csv
 import re
+import operator
 
 import requests
 
@@ -50,7 +51,7 @@ def most_popular_characters(characters=characters, top=5):
     return print(top_n)
 
 
-print(most_popular_characters(characters=characters, top=5))
+
 
 def max_and_min_years_new_characters(characters=characters):
     """Get the year with most and least new characters introduced respectively,
@@ -58,8 +59,15 @@ def max_and_min_years_new_characters(characters=characters):
        characters, or the 'year' attribute of the namedtuple, return a tuple
        of (max_year, min_year)
     """
-    pass
+    years = list()
+    for character in characters:
+        if len(character.year) == 4:
+            years.append(character.year)
+    char_count = Counter(years)
+    char_count_ordered = {k: v for k, v in sorted(char_count.items(), key = lambda item: item[1], reverse = True)}
+    return max(char_count_ordered.items(), key=operator.itemgetter(1))[0], min(char_count_ordered.items(), key=operator.itemgetter(1))[0]
 
+print(max_and_min_years_new_characters(characters))
 
 def get_percentage_female_characters(characters=characters):
     """Get the percentage of female characters as percentage of all genders
