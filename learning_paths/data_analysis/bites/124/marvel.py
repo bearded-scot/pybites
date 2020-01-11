@@ -67,7 +67,7 @@ def max_and_min_years_new_characters(characters=characters):
     char_count_ordered = {k: v for k, v in sorted(char_count.items(), key = lambda item: item[1], reverse = True)}
     return max(char_count_ordered.items(), key=operator.itemgetter(1))[0], min(char_count_ordered.items(), key=operator.itemgetter(1))[0]
 
-print(max_and_min_years_new_characters(characters))
+
 
 def get_percentage_female_characters(characters=characters):
     """Get the percentage of female characters as percentage of all genders
@@ -77,4 +77,13 @@ def get_percentage_female_characters(characters=characters):
        Agender and Genderfluid Characters.
        Return the result rounded to 2 digits
     """
-    pass
+    gender_list = []
+    pattern = re.compile(r'(\w+) (\w+)')
+    for character in characters:
+        if len(character.sex) > 0:
+            gender_list.append(re.sub(pattern, r'\1', character.sex))
+    gender_count = Counter(gender_list)
+    total_gender_count = (gender_count['Male'] + gender_count['Female'] + gender_count['Agender'] + gender_count['Genderfluid'])
+    return (gender_count['Female']/total_gender_count)*100
+
+
