@@ -37,7 +37,8 @@ def load_data():
 
 
 # start coding
-characters = load_data()
+
+characters = list(load_data())
 def most_popular_characters(characters=characters, top=5):
     """Get the most popular character by number of appearances,
        return top n characters (default 5)
@@ -48,7 +49,7 @@ def most_popular_characters(characters=characters, top=5):
         (n, a) = x.name, x.appearances
         char_app.append((n,a))
     top_n = [key for key, value in char_app][:top]
-    return print(top_n)
+    return top_n
 
 
 
@@ -59,13 +60,10 @@ def max_and_min_years_new_characters(characters=characters):
        characters, or the 'year' attribute of the namedtuple, return a tuple
        of (max_year, min_year)
     """
-    years = list()
-    for character in characters:
-        if len(character.year) == 4:
-            years.append(character.year)
-    char_count = Counter(years)
-    char_count_ordered = {k: v for k, v in sorted(char_count.items(), key = lambda item: item[1], reverse = True)}
-    return max(char_count_ordered.items(), key=operator.itemgetter(1))[0], min(char_count_ordered.items(), key=operator.itemgetter(1))[0]
+    first_appearances_by_year = Counter(character.year for character in characters if character.year)
+    [(max_year, _)] = first_appearances_by_year.most_common(1)
+    min_year, _ = first_appearances_by_year.most_common()[-1]
+    return max_year, min_year
 
 
 
@@ -84,6 +82,6 @@ def get_percentage_female_characters(characters=characters):
             gender_list.append(re.sub(pattern, r'\1', character.sex))
     gender_count = Counter(gender_list)
     total_gender_count = (gender_count['Male'] + gender_count['Female'] + gender_count['Agender'] + gender_count['Genderfluid'])
-    return (gender_count['Female']/total_gender_count)*100
+    return round((gender_count['Female']/total_gender_count)*100, 2)
 
 
