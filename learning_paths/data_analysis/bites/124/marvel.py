@@ -42,8 +42,7 @@ def most_popular_characters(characters=characters, top=5):
     """Get the most popular character by number of appearances,
        return top n characters (default 5)
     """
-    pass
-
+    return max(characters, key = characters.get)
 
 def max_and_min_years_new_characters(characters=characters):
     """Get the year with most and least new characters introduced respectively,
@@ -63,3 +62,5 @@ def get_percentage_female_characters(characters=characters):
        Return the result rounded to 2 digits
     """
     pass
+
+most_popular_characters(characters)
