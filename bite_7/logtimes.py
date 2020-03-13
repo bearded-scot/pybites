@@ -43,4 +43,3 @@ def time_between_shutdowns(loglines):
     time_list = [convert_to_datetime(line) for line in loglines if SHUTDOWN_EVENT in line]
     return time_list[-1] - time_list[0]
 
-print(time_between_shutdowns(loglines))
